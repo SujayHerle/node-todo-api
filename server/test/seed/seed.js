@@ -17,16 +17,22 @@ const users = [{
   _id:userTwoId,
   email:'herle2@1234.com',
   password:'password2',
+  tokens:[{
+    access:'auth',
+    token:jwt.sign({_id:userTwoId,access:'auth'},'abc123').toString()
+  }]
 }];
 
 const todos = [{
   _id:new ObjectID(),
-  text:'First test'
+  text:'First test',
+  _creator:userOneId
 },{
   _id:new ObjectID(),
   text:'Second Test',
 completed:true,
-completedAt:333}];
+completedAt:333,
+_creator:userTwoId}];
 
 const populateTodos = (done)=>{
   Todo.remove({}).then(()=>{
